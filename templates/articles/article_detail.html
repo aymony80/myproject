@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+
+{% block content %}
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+	
+	<h6 class="border-bottom border-gray pb-2 mb-0">{{ object.number }}</h6>
+	
+	<div class="media text-muted pt-3">
+
+		{% if object.closed %} 
+          <img data-src="holder.js/32x32?theme=thumb&bg=28a745&fg=28a745&size=1" alt="" class="mr-2 rounded">
+		{% else %} 
+			<img data-src="holder.js/32x32?theme=thumb&bg=dc3545&fg=dc3545&size=1" alt="" class="mr-2 rounded">
+		{% endif %}
+		
+		<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<strong class="text-gray-dark">{{ object.title }}</strong> 
+				<span><a href="{% url 'article_edit' article.pk %}">Edit</a> | <a href="{% url 'article_delete' article.pk %}">Delete</a></span>
+			</div>
+			<span class="d-block">{{ article.date|naturaltime }}<a href="#"> {{ article.author }}</a></span>
+		</div>
+		
+	</div>
+	
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+	<h6 class="border-bottom border-gray pb-2 mb-0">Comments</h6>
+
+	{% for comment in article.comments.all %}
+
+		<div class="media text-muted pt-3">
+			
+			<img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
+			
+			<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+				<div class="d-flex justify-content-between align-items-center w-100">
+					<strong class="text-gray-dark">{{ comment }}</strong> 
+				</div>
+				<span class="d-block">{{ comment.date|naturaltime }}<a href="#"> {{ comment.author }}</a></span>
+			</div>
+			
+		</div>
+
+	{% endfor %}
+
+</div>
+
+{% endblock content %}
